@@ -1,0 +1,179 @@
+//********************* DEVELOPED BY DHARANI KANNA K V ***********************//
+#include <SoftwareSerial.h>
+
+SoftwareSerial mySerial(0, 1);
+
+int park1 = A0;
+int park2 = A1;
+int park3 = A2;
+int park4 = A3;
+int park5 = A4;
+int gled1 = 2;
+int gled2 = 3;
+int gled3 = 4;
+int gled4 = 5;
+int gled5 = 6;
+int rled1 = 7;
+int rled2 = 8;
+int rled3 = 9;
+int rled4 = 10;
+int rled5 = 11;
+
+void parking1() {
+  int sensor1 = (digitalRead(park1));
+  if (sensor1 == 1) {
+    digitalWrite(gled1, HIGH);
+    digitalWrite(rled1, LOW);
+    Serial.println("PARKING 1 AVAILABLE");
+    mySerial.println("PARKING 1 AVAILABLE");
+
+  }
+  else {
+    digitalWrite(rled1, HIGH);
+    digitalWrite(gled1, LOW);
+    Serial.println("PARKING 1 UNAVAILABLE");
+    mySerial.println("PARKING 1 UNAVAILABLE");
+  }
+}
+
+void parking2() {
+  int sensor2 = (digitalRead(park2));
+  if (sensor2 == 1) {
+    digitalWrite(gled2, HIGH);
+    digitalWrite(rled2, LOW);
+    Serial.println("PARKING 2 AVAILABLE");
+    mySerial.println("PARKING 2 AVAILABLE");
+  }
+  else {
+    digitalWrite(rled2, HIGH);
+    digitalWrite(gled2, LOW);
+    Serial.println("PARKING 2 UNAVAILABLE");
+    mySerial.println("PARKING 2 UNAVAILABLE");
+  }
+}
+void parking3() {
+  int sensor3 = (digitalRead(park3));
+  if (sensor3 == 1) {
+    digitalWrite(gled3, HIGH);
+    digitalWrite(rled3, LOW);
+    Serial.println("PARKING 3 AVAILABLE");
+    mySerial.println("PARKING 3 AVAILABLE");
+  }
+  else {
+    digitalWrite(rled3, HIGH);
+    digitalWrite(gled3, LOW);
+    Serial.println("PARKING 3 UNAVAILABLE");
+    mySerial.println("PARKING 3 UNAVAILABLE");
+  }
+}
+void parking4() {
+
+  int sensor4 = (digitalRead(park4));
+  if (sensor4 == 1) {
+    digitalWrite(gled4, HIGH);
+    digitalWrite(rled4, LOW);
+    Serial.println("PARKING 4 AVAILABLE");
+    mySerial.println("PARKING 4 AVAILABLE");
+  }
+  else {
+    digitalWrite(rled4, HIGH);
+    digitalWrite(gled4, LOW);
+    Serial.println("PARKING 4 UNAVAILABLE");
+    mySerial.println("PARKING 4 UNAVAILABLE");
+  }
+}
+void parking5() {
+
+  int sensor5 = (digitalRead(park5));
+  if (sensor5 == 1) {
+    digitalWrite(gled5, HIGH);
+    digitalWrite(rled5, LOW);
+    Serial.println("PARKING 5 AVAILABLE");
+    mySerial.println("PARKING 5 AVAILABLE");
+  }
+  else {
+    digitalWrite(rled5, HIGH);
+    digitalWrite(gled5, LOW);
+    Serial.println("PARKING 5 UNAVAILABLE");
+    mySerial.println("PARKING 5 UNAVAILABLE");
+  }
+}
+
+void setup() {
+  Serial.begin(9600);
+
+  pinMode(park1, INPUT);
+  pinMode(park2, INPUT);
+  pinMode(park3, INPUT);
+  pinMode(park4, INPUT);
+  pinMode(park5, INPUT);
+  pinMode(gled1, OUTPUT);
+  pinMode(gled2, OUTPUT);
+  pinMode(gled3, OUTPUT);
+  pinMode(gled4, OUTPUT);
+  pinMode(gled5, OUTPUT);
+  pinMode(rled1, OUTPUT);
+  pinMode(rled2, OUTPUT);
+  pinMode(rled3, OUTPUT);
+  pinMode(rled4, OUTPUT);
+  pinMode(rled5, OUTPUT);
+
+  int temp;
+  if (temp == 1)
+  {
+    check();
+    temp = 0;
+    delay(1000);
+  }
+
+
+}
+
+
+
+void loop() {
+
+
+
+  parking1();
+  parking2();
+  parking3();
+  parking4();
+  parking5();
+  serialEvent();
+  check();
+}
+
+void serialEvent()
+{
+  while (Serial.available())
+  {
+    int i = 0;
+    char inChar = Serial.read();
+    str[i++] = inChar;
+  }
+}
+
+void check()
+{
+
+  if (!(strncmp("Can I park now")))
+  {
+    void SendMessage()
+    {
+      mySerial.println("AT+CMGF=1");
+      delay(1000);
+      mySerial.println("AT+CMGS=\"+91xxxxxxxxxx\"\r");
+      delay(1000);
+      parking1();
+      parking2();
+      parking3();
+      parking4();
+      parking5();
+      delay(100);
+      mySerial.println((char)26);
+      delay(1000);
+    }
+
+  }
+}
